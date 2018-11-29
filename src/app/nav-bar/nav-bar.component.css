@@ -1,0 +1,10 @@
+#page-top{
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 999;
+}
+.navbar-nav > li{
+  margin-left:10px;
+  margin-right:10px;
+}

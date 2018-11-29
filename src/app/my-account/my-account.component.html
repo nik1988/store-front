@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col">
+
+    <img src="../../assets/images/wood.png" class="img-fluid wood-image">
+    <h2 class="section-headline"><span>My Account</span></h2>
+    <img src="../../assets/images/logo.png" class="rounded logo-image"/>
+
+  </div>
+</div>
+
+<div class="row" style = "margin-top:80px;">
+  <div class = "col-lg-3"></div>
+
+  <div class = "col-lg-9">
+
+    <div class="card">
+      <div class = "card-body" style = "background-color:#ededed;">
+
+          <mat-tab-group>
+
+            <mat-tab label = "Login">
+
+              <form (ngSubmit) = "onLogin()">
+
+                <div class = "form-group">
+
+                  <label for = "username">UserName *</label>
+                  <input type = "text" class = "form-control" name="username" id = "username"
+                         [(ngModel)] = "credential.username" required autofocus = "autofocus">
+                  <p style = "color:#828282;">Enter Your Username</p>
+
+                </div>
+
+                <div class = "form-group">
+
+                  <label for = "password">Password*</label>
+                  <input type = "password" class = "form-control" name="password" id = "password"
+                         [(ngModel)] ="credential.password">
+                  <p style = "color:#828282">Enter Password</p>
+                </div>
+
+                <button mat-raised-button class = "mat-primary" type = "submit">Log In</button>
+
+              </form>
+
+            </mat-tab>
+
+            <mat-tab label = "SignUp">Sign Up</mat-tab>
+
+
+          </mat-tab-group>
+
+
+      </div>
+    </div>
+  </div>
+
+</div>

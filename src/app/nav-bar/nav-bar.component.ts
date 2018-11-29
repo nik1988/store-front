@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavBarComponent implements OnInit {
 
+  searchTitle:string ="";
+  loggedIn:boolean = false;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onSearchByTitle(){
+
   }
 
 }

@@ -1,3 +1,51 @@
-<p>
-  nav-bar works!
-</p>
+<div style="width:100%;height:20px;background-color: #f46b42">
+</div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+  <!--<div class="container">-->
+
+  <a class="navbar-brand" routerLink="/home">Book Store</a>
+
+  <ul class="nav navbar-nav mr-auto mt-2 mt-lg-0">
+
+    <li class="nav-item">
+      <a class="nav-link">Book</a>
+    </li>
+
+    <li class="nav-item">
+
+      <form class="form-inline my-2 my-lg-0" (ngSubmit)="onSearchByTitle()">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+               [(ngModel)]="searchTitle">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+
+    </li>
+
+  </ul>
+
+
+  <ul class="nav navbar-nav ml-auto">
+
+    <li *ngIf="!loggedIn" class="nav-item">
+      <a class="nav-link" routerLink="/myaccount">My Account</a>
+
+    </li>
+
+    <li *ngIf="loggedIn" class="nav-item">
+      <a class="nav-link" routerLink="/shoppingCart">Shopping Cart</a>
+    </li>
+
+
+    <li *ngIf="loggedIn" class="nav-item">
+      <a class="nav-link" routerLink="/shoppingCart">My Profile</a>
+    </li>
+
+    <li *ngIf="loggedIn" class="nav-item">
+      <a class = "nav-link" (click) = "logout()">LOGOUT</a>
+    </li>
+
+  </ul>
+
+<!--  </div>-->
+</nav>
