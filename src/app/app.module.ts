@@ -11,13 +11,15 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import {FormsModule} from "@angular/forms";
 import { MyAccountComponent } from './my-account/my-account.component';
 import {HttpClientModule} from "@angular/common/http";
+import { MyProfileComponent } from './my-profile/my-profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NavBarComponent,
-    MyAccountComponent
+    MyAccountComponent,
+    MyProfileComponent
   ],
   imports: [
     BrowserModule,

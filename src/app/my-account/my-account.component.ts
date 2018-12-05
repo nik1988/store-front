@@ -27,7 +27,7 @@ export class MyAccountComponent implements OnInit {
   public email:string;
 
   public emailNotExists:boolean = false;
-  public forgotPasswordEmailSent:boolean;
+  public forgotPasswordEmailSent:boolean = false;
   public recoverEmail:string;
 
   constructor(private loginService:LoginService, private userService:UserService,private router:Router) {
@@ -90,6 +90,25 @@ onNewAccount(){
 
   onForgetPassword(){
 
+    console.log("request submitted");
+
+    this.emailNotExists = false;
+
+    this.userService.retrievePassword(this.recoverEmail).subscribe(
+
+      (response) =>{
+        console.log("password recovered successfully");
+        this.forgotPasswordEmailSent = true;
+      },
+      (responseError) =>{
+
+        console.log("error while recovering password");
+        if(responseError.error === "emailNotExists"){
+          this.emailNotExists = true;
+        }
+      }
+
+    )
   }
 
 }
