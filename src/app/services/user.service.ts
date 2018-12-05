@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AppConst} from "../constants/app-const";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpResponse} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,9 @@ export class UserService {
 
     }
 
-    return this.httpClient.post('url',userInfo);
+    return this.httpClient.post(url,userInfo,{
+      responseType:'text'
+    });
 
   }
 

@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {AppConst} from "../constants/app-const";
+import {Subject} from "rxjs/internal/Subject";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
+
+  loggedIn:Subject<boolean> = new Subject<boolean>();
 
   constructor(private httpClient:HttpClient) { }
 
@@ -28,6 +31,9 @@ export class LoginService {
 
   validateSession(){
 
+    const url = AppConst.serverPath+"/user/checksession";
+
+    return this.httpClient.get<Response>(url);
   }
 
   logOut(){

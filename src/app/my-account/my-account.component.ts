@@ -3,6 +3,7 @@ import {AppConst} from "../constants/app-const";
 import {LoginService} from "../services/login.service";
 import {UserService} from "../services/user.service";
 import {Router} from "@angular/router";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-my-account',
@@ -14,19 +15,20 @@ export class MyAccountComponent implements OnInit {
 
 
   private serverPath = AppConst.serverPath;
-  private loginError:boolean = false;
+  public loginError:boolean = false;
   private loggedIn:boolean = false;
   public credential = {'username':'','password':''};
 
-  private emailSent:boolean = false;
-  private userNameExists:boolean;
-  private emailExists:boolean;
+  public emailSent:boolean = false;
+  public userNameExists:boolean;
+  public emailExists:boolean;
 
-  private username:string;
-  private email:string;
+  public username:string;
+  public email:string;
 
-  private emailNotExists:boolean = false;
-  private forgotPasswordEmailSent:boolean;
+  public emailNotExists:boolean = false;
+  public forgotPasswordEmailSent:boolean;
+  public recoverEmail:string;
 
   constructor(private loginService:LoginService, private userService:UserService,private router:Router) {
   }
@@ -39,6 +41,7 @@ export class MyAccountComponent implements OnInit {
 
     this.loginService.sendCredential(this.credential.username,this.credential.password).subscribe(
       (response:any) =>{
+        console.log("login successfull");
         console.log(response);
         localStorage.setItem('token',response.token);
         this.loggedIn= true;
@@ -62,22 +65,31 @@ onNewAccount(){
     this.emailSent = false;
 
     this.userService.newUser(this.username,this.email).subscribe(
-      (resposne) => {
-
-        console.log(resposne);
+      (response) => {
+        console.log("mail sent successfully");
+        console.log(response);
         this.emailSent = true;
       },
 
-      (error) =>{
+      (error:HttpErrorResponse) =>{
 
-        console.log("error");
-        let errormessage = error.text();
-        if(errormessage = "usernameExists") this.userNameExists = true;
-        if(errormessage = "emailExists") this.emailExists = true;
+        console.log("error = "+error.error);
+        let errormessage = error.error;
+
+        if(errormessage === "userNameExists") { //userNameExists
+          this.userNameExists = true;
+        }
+        if(errormessage === "emailExists"){
+          this.emailExists = true;
+        }
       }
 
     )
 
 }
+
+  onForgetPassword(){
+
+  }
 
 }

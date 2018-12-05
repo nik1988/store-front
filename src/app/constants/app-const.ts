@@ -1,5 +1,5 @@
 export class AppConst{
 
-  public static serverPath = 'http://locahost:8282';
+  public static serverPath = 'http://localhost:8282';
 
 }
