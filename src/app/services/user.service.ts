@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {AppConst} from "../constants/app-const";
-import {HttpClient, HttpResponse} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
+import {User} from "../model/user";
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,8 @@ export class UserService {
   private serverPath:string = AppConst.serverPath;
 
   constructor(private httpClient:HttpClient) { }
+
+   header:HttpHeaders = new HttpHeaders().set('x-auth-token',localStorage.getItem("token"))
 
 
   newUser(username:string,email:string){
@@ -23,7 +26,8 @@ export class UserService {
     }
 
     return this.httpClient.post(url,userInfo,{
-      responseType:'text'
+      responseType:'text',
+      'headers':this.header
     });
 
   }
@@ -37,12 +41,45 @@ export class UserService {
     }
 
     return this.httpClient.post(url,userInfo,{
-      responseType:'text'
+      responseType:'text',
+      'headers':this.header
     });
 
   }
 
 
+  getCurrentUser(){
+
+    let url = this.serverPath+"/user/getCurrentUser";
+
+
+
+    return this.httpClient.get(url,{
+
+      'headers':this.header
+
+    });
+
+  }
+
+  updateUser(user:User,newPassword:string){
+
+    let userinfo = {
+
+      'id':user.id,
+      'email':user.email,
+      'firstname':user.firstname,
+      'lastname':user.lastname,
+      'newpassword':newPassword,
+      'password':user.password
+
+    }
+
+    let url = AppConst.serverPath +"/user/updateUserInfo";
+
+    return this.httpClient.post(url,userinfo);
+
+  }
 
 
 }

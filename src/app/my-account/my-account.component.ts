@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AppConst} from "../constants/app-const";
 import {LoginService} from "../services/login.service";
 import {UserService} from "../services/user.service";
@@ -30,6 +30,10 @@ export class MyAccountComponent implements OnInit {
   public forgotPasswordEmailSent:boolean = false;
   public recoverEmail:string;
 
+  //generate a login suucess event
+  @Output() onLoginSucess = new EventEmitter<boolean>();
+
+
   constructor(private loginService:LoginService, private userService:UserService,private router:Router) {
   }
 
@@ -45,6 +49,7 @@ export class MyAccountComponent implements OnInit {
         console.log(response);
         localStorage.setItem('token',response.token);
         this.loggedIn= true;
+        this.loginService.emitLogInSuccess();
         this.router.navigate(['/home']);
 
       },

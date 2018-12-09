@@ -11,7 +11,28 @@ export class NavBarComponent implements OnInit {
   searchTitle:string ="";
   loggedIn:boolean = false;
 
-  constructor(private loginService:LoginService) { }
+  constructor(private loginService:LoginService) {
+
+    this.loginService.loggedIn.subscribe(
+
+      (loginsuccess:boolean) =>{ this.loggedIn = loginsuccess }
+
+    )
+  /*  this.loginService.validateSession().subscribe(
+      (response:any) =>{
+        console.log(" validating session, session id ="+response.session);
+
+        if(response.session != null ){
+          this.loggedIn = true;
+        }
+
+      },
+      (error) => {this.loggedIn = false;}
+
+    )
+*/
+
+  }
 
   ngOnInit() {
 

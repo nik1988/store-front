@@ -31,10 +31,21 @@ export class LoginService {
 
   validateSession(){
 
+    let  header = new HttpHeaders().set('x-auth-token',localStorage.getItem("token"))
     const url = AppConst.serverPath+"/user/checksession";
 
-    return this.httpClient.get<Response>(url);
+    return this.httpClient.get<Response>(url,{
+      'headers':header
+    });
   }
+
+
+  emitLogInSuccess(){
+
+    this.loggedIn.next(true)
+
+  }
+
 
   logOut(){
 
