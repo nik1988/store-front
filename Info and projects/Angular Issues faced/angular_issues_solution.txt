@@ -1,0 +1,291 @@
+
+if you are getting this exception for compnents , directives
+ 
+"Can't resolve all parameters (? ,..  "
+
+
+solution:
+
+check in your constructor if you have declared type for all paramaters, if not that is what is causing the issue.
+
+
+--------- when  u inject service in constructor error is there but fails when application loads--------------
+
+This issue can happen because of cyclic dependenct examle
+
+CommonmodalService ---- calling ---> ModalComponet
+ModalComponent ---  injects ----> CommonModalService in constructor
+
+Above is cyclic dependency problem and angular doesnot allow it, As a workaroung we can use injector service
+
+to inject dependencies lazily.
+
+
+---more than one module match-------------------
+
+ng g c ui/navbar --module app
+
+
+
+--- No angular.json found
+1
+Check the direcetory where u running ng serve
+it should be project directory.
+
+
+----- Angular router top to bottom parsing problem -------
+
+when we define routes in angular, it parses routes from top to bottom
+
+hence if we define routes like:
+{path:'shopping',component: ShoppinglistComponent},
+  {path:'recipe',component:ReceipeComponent,children:[
+      {path:'',component:ReceipeStartComponent},
+      {path:':id',component:ReceipedetailComponent},
+      {path:'new',component:ReceipeeditComponent}
+   ]
+},
+  {path:'',redirectTo:'recipe',pathMatch:'full'} // path match not sure.
+
+
+
+and if try to access receipe edit component with url -- http://localhost:4200/recipe/new  -- it failsss !!!!!!!
+
+
+Reason :
+
+Happens because angular parses the routes from top to bottom hence if we try to look for dymnamic parameter :id under url "http://localhost:4200/recipe/" 
+hence to fix this we must swap that is
+
+       {path:'new',component:ReceipeeditComponent},
+      {path:':id',component:ReceipedetailComponent}
+
+and it will fix the problem.
+
+
+
+----- Adding regex to template form validation ------------------
+
+if we want to added some pattern validator in template form we can simply add it using pattern:
+
+eg
+ <input type="number"
+                 name = "amount"
+                 ngModel
+                 class="form-control"
+                 required
+                 pattern = "^[1-9]+[0-9]*$"
+                 >
+
+
+------------------------- java script code in String Interpolation -------------------
+ 
+we can have java script code in string interpolation as shown below:
+
+<button class="btn btn-success" type="submit" [disabled]= "!form.valid">
+              {{(editMode ? 'Edit':'Add')}}
+            </button>
+
+
+Issue : Cannot create property 'validator' on string in reactive form approach
+
+this issue occurs when we have not used property binding while assigning form group in html
+
+eg :     <form formGroup="receipeForm" (ngSubmit) = "onSubmit()"> -- will cause this problem
+
+solution : use property binding for form group
+
+  <form [formGroup]="receipeForm" (ngSubmit) = "onSubmit()">
+
+
+
+---------------------- Type Casting is TypeScript and Angular ----------------------
+
+some times when u get a type of array in ts code it may happen that angular knows which type it is returning what ts code what type it should accept in this case we must type cast
+the returned value 
+
+example:
+
+   (<FormArray>this.receipeForm.get('ingredeints')).push(
+      new FormGroup({
+        name:new FormControl(),
+        quantity:new FormControl()
+
+      })
+    )
+  }
+
+in this above code receipeForm.get('ingredeints') returns a FormArray although TS know returned type is of FormArray , therefore
+we need to cast it
+
+How to Cast:
+(<FormArray>this.receipeForm.get('ingredeints')) ----  cast the ectire thing not just (<FormArray>)
+ as in java
+
+
+---------- programaticaly navigating one step above the route ------------------
+
+    this.router.navigate(['../'],{relativeTo:this.route})
+
+we can navigate one step above relative to current route using above way where route is of type 
+activated route and router is of type router.
+
+
+--------- starting angular o different server -------------
+ng serve --port 2222
+
+
+----------module not found when importing newly added class / service -------------
+
+this happens may be because file was not created properly and not being recognized as typescript file
+
+delete the file and recreate it make sure you give .ts as extension while creating file itself.
+
+
+------ Entry component not present in app module -------------------
+
+You might have manually created the component and have missed to add it in the declarations array in main module.
+
+If you still get this error then also try adding component in boostrap array , it was required for DialogComponent that you have to create
+in order to use dialog of angular material.
+
+
+
+------------ The selector did not match any elements "<<selector name >>" ------------------
+
+If we get this error we must check in our main.module.ts if we added other components along with our root component (which is appcomponent)
+in bootstrap array.
+
+basically angular tries to load the main component and other component at the same time when we does this and it does not recognize the
+selectors defined for child components
+
+Solution : if you have added normal componests to bootstrap array then move it to declarations array
+In case if you have added any material components for example CustomDialogComponent there then you need to cratenew array entryComponent and add it there 
+
+example:
+
+  providers: [],
+  bootstrap: [AppComponent],
+  entryComponents:[DeleteDialogComponent] // need to understand what this array is used for other than angular elements.
+
+
+
+----------- Unable to parse json value error while receiving response using HttpClient --------------------------------
+
+
+This happens because our backend is returning a string (ResponseEntity<String>) but angular http client by default tries to parse the string to json
+
+Solution: In case we are not receiving json response we must tell angular what kind of response we are expecting from backed server using options object
+of http client
+
+example:
+
+   return this.httpService.delete(removeBookUrl, {
+      responseType:'text'  // we tell angular that we are receiving the response of type string so dont parse the response as json by default.
+    }    
+
+
+---------- checked is not a known property/<<propertname>> is a not a known property-------------------------------------
+
+bacially it was being thrown because I was using event.target.checked but target was direct property of event that means when i used
+
+event.checked and issue got fixed, 
+
+
+basically when we get this error we must log event and check our property belongs to which part of event.4
+
+
+
+---------------------  Need to make async call only after certain other async calls have completed/Execute async calls in a batch ------------------------------
+
+use forkJoin(), take all async calls without subscribe in an array and pass array as an argument to fork join and subscribe to it
+
+it will complete all the call to async and then print the response in sequence if you log it, under response section you can make a final async call
+
+example:
+
+ let observables = [];
+
+          for (let book of this.removeBookList) {
+
+            observables.push(this.bookListService.removeBookBYId(book.id));
+          }
+
+           forkJoin(observables).subscribe(
+            (response) => {
+              console.log(response)
+              this.getBookList(); // final async call
+            },
+            (error) => {
+              console.log(error)
+            }
+          )
+        }
+      }
+
+in case of error in any of the calls for join wont get complete and control will go to error part hence final async call wont be made.
+
+As part of testing i have checked that when i log for join completed after response , i see all the responses printed and only after
+that "fork join  completed " message is printed, hence it works :)
+
+
+
+---------------------------- No provider for HttpClient----------------------------------------
+
+you have not imported http client error in cosole means you have not imported HttpClientModule in main module , please import it as it is required to use HttpClient.
+
+
+
+------- Even though sending 200 Ok in ResponseEntity Angular 6 is considering successfull response under error in HttpClient -------------------------
+
+
+Basically Angular 6 by default expects a json response so when we send response from backend like for example:
+
+ResponseEntity.status(HttpStatus.OK).body("Mail Sent SuccessFully");
+
+It expects a json but it received string in response so Angular considers it as error.
+
+In order for Angular to consider it correctly we must specify responseType:'text' while sending request to backend
+
+example :  return this.httpClient.post(url,userInfo,{
+      responseType:'text'
+    });
+
+------------------------ reading error message from error response in angular --------------------------------
+
+suppose we are sending a error response from backend as example:
+
+  return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("emailExists");
+
+
+similary we have error repsonse for userExists.Based on these values we need to set a flag ans print error message.
+
+
+Solution:
+
+error message is wrapped under error attribute of Http Error response , hence we can read this error attribute to get the required error message.
+
+example:
+
+this.userService.newUser(this.username,this.email).subscribe(
+      (response) => {
+        console.log("mail sent successfully");
+        console.log(response);
+        this.emailSent = true;
+      },
+
+      (errorResponse:HttpErrorResponse) =>{ //error response
+
+        console.log("error = "+errorResponse.error);  // reading the error attribute from error response.
+        let errormessage = error.error;
+
+        if(errormessage === "userNameExists") { //userNameExists
+          this.userNameExists = true;
+        }
+        if(errormessage === "emailExists"){
+          this.emailExists = true;
+        }
+      }
+

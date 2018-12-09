@@ -1,0 +1,101 @@
+<div class="row">
+  <div class="col">
+
+    <img src="../../assets/images/wood.png" class="img-fluid wood-image">
+    <h2 class="section-headline"><span>My Profile</span></h2>
+    <img src="../../assets/images/logo.png" class="rounded logo-image"/>
+
+  </div>
+</div>
+
+
+<div class="row" style="margin-top:80px;">
+  <div class="col-lg-3"></div>
+  <div class="col-lg-9">
+    <div class="card">
+      <div class="card-body" style="background-color:#ededed;">
+
+        <mat-tab-group [selectedIndex]="selectProfileTab">
+
+          <mat-tab label="Edit">
+            <div *ngIf = "datafetched"  style = "margin-top:20px;text-align: center">
+              <span class = "alert alert-success">Data Updated Successfully.</span>
+            </div>
+
+            <div *ngIf = "updateError"  style = "margin-top:20px;text-align: center">
+              <span class = "alert alert-danger">{{errorMessage}}</span>
+            </div>
+
+            <form (ngSubmit)="onUpdateUserInfo()" style="margin-top:15px;">
+
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <label for="firstName">FirsName</label>
+                    <input type="text" class="form-control" id="firstName"
+                           name="firstName" [(ngModel)]="user.firstname">
+                  </div>
+
+                  <div class="col-lg-6">
+                    <label for="lastName">LastName</label>
+                    <input type="text" class="form-control" id="lastName"
+                           name="lastName" [(ngModel)]="user.lastname">
+                  </div>
+
+                </div>
+              </div>
+
+
+              <div class="form-group">
+                <label for="userName">UserName</label>&nbsp;
+                <span *ngIf = "userNameExists" class ="text-danger">Username Already Exists</span>
+                <input type="text" class="form-control" id="userName"
+                       name="userName" [(ngModel)]="user.username">
+              </div>
+
+              <div class="form-group">
+                <label for="currentPassword">Current Password *</label>&nbsp;
+               <!-- <span *ngIf = "userNameExists" class ="text-danger">Usename Already Exists</span>-->
+                <input type="password" class="form-control" id="currentPassword"
+                       name="currentPassword" [(ngModel)]="user.password">
+                <p style = "color:#828282">Please enter current password to change email address
+                or password.</p>
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email Address</label>&nbsp;
+                <span *ngIf = "emailExists" class ="text-danger">Email Already Exists</span>
+                <input type="text" class="form-control" id="email"
+                       name="email" [(ngModel)]="user.email">
+                <p style = "color:#828282">Enter a valid email address</p>
+              </div>
+
+
+              <div class="form-group">
+                <label for="newPassword">New Password *</label>&nbsp;
+                <!-- <span *ngIf = "userNameExists" class ="text-danger">Usename Already Exists</span>-->
+                <input type="password" class="form-control" id="newPassword"
+                       name="newPassword" [(ngModel)]="txtNewPassword">
+              </div>
+
+
+              <div class="form-group">
+                <label for="cnfrmPassword">Confirm Password *</label>&nbsp;
+                <!-- <span *ngIf = "userNameExists" class ="text-danger">Usename Already Exists</span>-->
+                <input type="password" class="form-control" id="cnfrmPassword"
+                       name="cnfrmPassword" [(ngModel)]="txtConfirmPassword">
+              </div>
+
+              <button mat-raised-button class="mat-primary" type = "submit">Submit</button>
+
+            </form>
+          </mat-tab>
+        </mat-tab-group>
+
+
+      </div>
+    </div>
+
+
+  </div>
+</div>

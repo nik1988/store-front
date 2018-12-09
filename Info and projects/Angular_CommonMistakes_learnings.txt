@@ -1,0 +1,65 @@
+---- Router.navigate---
+
+we must allways give router.navigate(['<<url>>']) not router.navigate('url')
+
+
+---- please import HttpClientModule in main module for using HttpClient in services ---------
+
+
+
+----- not using name attribute username form control when [(ngModel)] is used.
+
+when ever we use ngModel for two way binding it expects name attribute to be specified in html tag
+otherwise it will throw error.
+
+
+------------ cross component communication in angular----------------------
+
+Since we use router-outlet we need to create subject in common service for cross component communication
+
+example suppose we have a user profile page where we login and and as soon as user logs in successfully we 
+want our nav bar component to update some values.
+
+to handle this scenario we can send an evene to nav-bar component
+
+example:
+
+my-account.component.ts
+
+  //generate a login suucess event
+  //@Output() onLoginSucess = new EventEmitter<boolean>();
+
+ onLogin() {
+
+ 	// rest of the code
+	 this.loginService.emitLogInSuccess();
+}
+
+
+login.service.ts
+
+  loggedIn:Subject<boolean> = new Subject<boolean>(); // create a subject
+  
+emitLogInSuccess(){
+
+    this.loggedIn.next(true) // put value to logged in subject
+
+  }		
+
+
+nav-bar.component.ts
+
+
+constructor(private loginService:LoginService){
+
+loggedIn:boolean
+
+this.loginService.loggedIn.subscribe(   // subscribe to the subject
+
+      (loginsuccess:boolean) =>{ this.loggedIn = loginsuccess } //as soon as user logs in we are setting 
+								value of logged in.	
+    )									
+
+
+
+	

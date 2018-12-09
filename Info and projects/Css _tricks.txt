@@ -1,0 +1,14 @@
+
+--------- button moves towards right when we have given style as margin -left when screen size is reducedd-------------
+
+solution: try using float left  in css style for the button.
+
+
+------------ In bootstrap we want to two images one over another----------------
+
+
+example : suppose we have background and we want some logos on top of that background ----------
+
+for the images which will be on top we will give z-index as 1.
+
+example:

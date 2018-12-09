@@ -1,0 +1,111 @@
+question: calculating the sum of leading and trailing diagonals for an array:
+
+123
+123
+233
+
+leading diaognal : 1,2,3  trailing diagonal : 3,2,2
+
+identifying no of rows in array = arr.length
+identifying no of columns in aray = arr[0].length
+
+
+apply logic :)
+
+
+
+question : pyramid pattern left
+
+way tp print required spaces :
+
+  System.out.print(String.format("%"+i+"s", "")); 
+
+
+------------------  Usage of sublist in linked list --------------------
+
+we can use sublist option of list in case we need to deal with contiguous part of list in some pattern
+
+example:
+testList.subList(0,2); fromlocation,tolocation.
+
+
+
+-------------- Allways remember length is property of an array not mehtod -------------------
+
+so in case you want to find the length of an array u do example : testArray.length;
+
+
+
+------ Convert 12 hour format date to 24 hour format date--------------------
+
+    /*
+     * Complete the timeConversion function below.
+     */
+    static String timeConversion(String s) throws Exception {
+       
+        SimpleDateFormat displayFormat = new SimpleDateFormat("HH:mm:ss");
+       SimpleDateFormat parseFormat = new SimpleDateFormat("hh:mm:ssaa");
+       Date date = parseFormat.parse(s);
+
+            return displayFormat.format(date).toString();
+
+HH -> 0-23
+hh ->12 hour format
+aa reresents AM/PM
+
+
+Input : 07:05:45PM
+Output: 19:05:45
+
+
+
+
+--- Electronic shop problem -------------
+
+
+find max possible spend in by comparing two values in an array:
+
+solution 1 : simply iterate  , complexity : O(n2)
+
+solution 2: sort first array in descending  and second in ascending:
+
+
+therefore if firtarrayelement + secondarrayelement > maxpossibleependiture
+
+then break the second loop as it is ascending all the summation with next elements will obviously be greater.
+
+
+
+------------------ Climbing the leader board problem(Performance Problem)--------------------------
+
+question is give the rank to provided array of scores where rank must be same for same value of scores
+
+calculate the appropriate rank for array of scores provided for Alice from above calculated ranks:
+
+Algorithm Followed:
+
+Step 1: Using hashmap calcuate the rank for all the scores where socres will be the key and rank will 
+be incrementted as the new score is encountered (Sort the array in descending order before putting in map.)
+
+Step 2: Sort the Alice scores in ascending order.
+
+Step 3: Iterate through the alice score and if  rankMap.contains(currentScore) return rankMap.get(currentScore).
+
+Step 4: else 
+ perform Collections.binarySearch on the scoreList and it will return the index of where the current score
+needs to be placed. we will consider the index of item which will be just previous to our current score in actual score
+list and return ran of previous item + 1.
+
+Note: Binary search was used to avoid O(n2) issue other wise multiple iterations where needed. 
+
+ int index = Collections.binarySearch(scoreList,currentScore);
+                
+                    index = Math.abs((index + 1));
+                
+                if (index >= scoreList.size()){
+                    AliceRank.add(1);
+                    continue;
+                }
+                    
+                   
+                    AliceRank.add((rankMap.get(scoreList.get(index))) + 1);
