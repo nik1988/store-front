@@ -1,0 +1,94 @@
+<div class="row">
+  <div class="col">
+
+    <img src="../../assets/images/wood.png" class="img-fluid wood-image">
+    <h2 class="section-headline"><span>Book List</span></h2>
+    <img src="../../assets/images/logo.png" class="rounded logo-image"/>
+
+  </div>
+</div>
+
+<div class="row" style="margin-top:80px;">
+  <div class="col-lg-3"></div>
+  <div class="col-lg-9">
+
+    <table class="table" [mfData]="bookList | dataFilter : filterQuery"
+           #mf="mfDataTable"
+           [mfRowsOnPage]="rowsOnPage"
+           [(mfSortBy)]="sortBy"
+           [(mfSortOrder)]="sortOrder">
+
+
+      <thead>
+      <tr>
+        <th colspan="5">
+          <div class="row">
+            <div class="col-lg-7">
+              Filter by Description
+              <input class="form-control" [(ngModel)]="filterQuery"/>
+            </div>
+            <div class="col-lg-2">
+              Rows On Page
+              <select class="form-control" [(ngModel)]="rowsOnPage">
+
+                <option [value]="5">5</option>
+                <option [value]="10">10</option>
+                <option [value]="15">15</option>
+
+              </select>
+            </div>
+          </div>
+        </th>
+      </tr>
+      </thead>
+
+      <tbody>
+
+      <tr *ngFor="let book of mf.data ">
+
+        <div class="row" style="margin-bottom:30px; margin-top:10px;">
+
+          <div class="col-lg-3">
+
+            <div class="card">
+
+              <div class="card-body">
+                <a style="cursor:pointer;" (click)="onSelectBook(book)">
+                  <img class="img-fluid" src="{{serverPath}}/{{book.id}}.png"/>
+                </a>
+
+              </div>
+
+            </div>
+          </div>
+
+            <div class="col-lg-9">
+
+              <h4 style="cursor:pointer;" (click)="onSelectBook(book)">{{book.title}}</h4>
+              <span>{{book.publicationDate}}</span>
+              <p>{{book.author}}</p>
+              <a style="cursor:pointer;" (click)="onSelectBook(book)">
+                <span>{{book.format | uppercase}}</span>
+              </a>
+              &nbsp;<span>{{book.numberOfPages}} pages</span>
+              <br/>
+              <a (click)="onSelectBook(book)" style="font-size: x-large;color:#db3208">
+                {{book.ourPrice | currency: 'USD' }}
+              </a>
+              <span style="text-decoration: line-through;">{{book.listPrice | currency:'USD'}}</span>
+              <p>{{book.description | slice:0:500}}</p>
+            </div>
+          </div>
+      </tr>
+      </tbody>
+
+      <tfoot>
+      <tr>
+        <td colspan="5">
+          <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
+        </td>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

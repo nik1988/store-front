@@ -12,6 +12,11 @@ import {FormsModule} from "@angular/forms";
 import { MyAccountComponent } from './my-account/my-account.component';
 import {HttpClientModule} from "@angular/common/http";
 import { MyProfileComponent } from './my-profile/my-profile.component';
+import { UserPaymentComponent } from './user-payment/user-payment.component';
+import { UserShippingComponent } from './user-shipping/user-shipping.component';
+import { BookListComponent } from './book-list/book-list.component';
+import {DataTableModule} from "angular-6-datatable";
+import {DataFilterPipe} from "../pipe/data-filter.pipe";
 
 @NgModule({
   declarations: [
@@ -19,7 +24,11 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
     HomeComponent,
     NavBarComponent,
     MyAccountComponent,
-    MyProfileComponent
+    MyProfileComponent,
+    UserPaymentComponent,
+    UserShippingComponent,
+    BookListComponent,
+    DataFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -29,7 +38,7 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
     AppRouterModule,
     FormsModule,
     HttpClientModule,
-
+    DataTableModule
 
 
   ],

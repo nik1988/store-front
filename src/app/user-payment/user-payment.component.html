@@ -1,0 +1,220 @@
+<br>
+<mat-tab-group [selectedIndex]="selectedBillingTab"
+               (selectedIndexChange)="selectedBillingChange($event)">
+
+  <mat-tab label="Credit Card List">
+
+    <form (ngSubmit)="setDefaultPayment()">
+
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Default</th>
+          <th>Credit Card</th>
+          <th>Operations</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor = "let card of cardDetailsList">
+          <td><input type = "radio" checked={{card.defaultPayment}}> default</td>
+          <td><span>{{card.cardName}}</span></td>
+          <td ><span><i style = "cursor:pointer" class = "fa fa-pencil" (click) = "editCardDetails(card)"></i></span> &nbsp;
+            <span><i style = "cursor:pointer" class = "fa fa-trash" (click) = "deletePayment(card)"></i></span>
+          </td>
+
+        </tr>
+        </tbody>
+      </table>
+
+      <button mat-raised-button class="mat-primary" type="submit">Save</button>
+
+    </form>
+
+  </mat-tab>
+
+  <mat-tab label="Add/Update Credit Card">
+
+    <form (ngSubmit)="onNewPayment()">
+      <div class="bg-info" *ngIf="updateUserPaymentInfo">User Payment Info Updated</div>
+      <br>
+      <div class="form-group">
+
+        <h5>*Give a name for your card. </h5>
+        <input type="text" class="form-control" name="cardName" id="cardName"
+               placeholder="card name" [(ngModel)]="userPayment.cardName"/>
+      </div>
+
+      <!-- Billing Adress -->
+      <hr/>
+
+      <div class="form-group">
+
+        <label for="billingName">*Name</label>
+        <input type="text" class="form-control" id="billingName" name="billingName"
+               placeholder="Receiver Name" [(ngModel)]="userBilling.userBillingName" required/>
+      </div>
+
+
+      <div class="form-group">
+
+        <label>*Street Address 1</label>
+        <input type="text" class="form-control" id="streetAddress1" name="streetAddress1"
+               placeholder="Street Address 1" [(ngModel)]="userBilling.userBillingStreet1" required/>
+      </div>
+
+
+      <div class="form-group">
+
+        <input type="text" class="form-control" id="streetAddress2" name="streetAddress2"
+               placeholder="Street Address 2" [(ngModel)]="userBilling.userBillingStreet2" required/>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-4">
+
+          <div class="form-group">
+            <label for="billingCity">* City</label>
+            <input type="text" class="form-control" name="billingCity" id="billingCity"
+                   [(ngModel)]="userBilling.userBillingCity" required/>
+          </div>
+        </div>
+        <div class="col-lg-4">
+
+          <div class="form-group">
+            <label for="billingState">* State</label>
+            <select id="billingState" class="form-control" name="billingState"
+                    [(ngModel)]="userBilling.userBillingState" required>
+
+              <option value="" disabled [selected]="true">--Select City--</option>
+              <option *ngFor="let state of stateList" [value]=state>{{state}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-4">
+
+          <div class="form-group">
+            <label for="zipCode">* ZipCode</label>
+            <input type="text" id="zipCode" class="form-control" name="zipCode"
+                   [(ngModel)]="userBilling.userBillingZipCode" required/>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- User Payment -->
+      <hr/>
+
+
+      <h4>Credit Card Information</h4>
+
+
+      <div class="row">
+        <div class="col-lg-12">
+          <img src="../../assets/images/creditcard.png" class="img-fluid"/>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label for="cardType">* Select Card Type</label>
+        <select id="cardType" class="form-control" name="cardType"
+                [(ngModel)]="userPayment.type" required>
+
+          <option value="" disabled selected> -- Card Type --</option>
+          <option *ngFor="let card of cardList" [value]=card>{{card}}</option>
+        </select>
+
+      </div>
+
+      <div class="form-group">
+        <label for="cardHolder">* Card Holder</label>
+        <input type="text" class="form-control" name="cardHolder" id="cardHolder"
+               placeholder="Card Holder Name"
+               [(ngModel)]="userPayment.holderName" required/>
+      </div>
+
+
+      <label for="cardNumber">* Card Number</label>
+      <div class="input-group">
+
+        <input type="text" class="form-control" name="cardNumber" id="cardNumber"
+               placeholder="Card Number"
+               [(ngModel)]="userPayment.cardNumber" required/>
+        <div class="input-group-append">
+          <span class="input-group-text"><i class="fa fa-credit-card"></i></span>
+        </div>
+      </div>
+
+      <br>
+      <div class="row">
+        <div class="col-lg-10">
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="expiryMonth">Card Expiration Date</label>
+                <select class="form-control" name="expiryMonth"
+                        [(ngModel)]="userPayment.expiryMonth" id="expiryMonth"  required>
+
+                  <option value="" selected>--Month--</option>
+                  <option value="1">Jan</option>
+                  <option value="2">Feb</option>
+                  <option value="3">Mar</option>
+                  <option value="4">Apr</option>
+                  <option value="5">May</option>
+                  <option value="6">Jun</option>
+                  <option value="7">Jul</option>
+                  <option value="8">Aug</option>
+                  <option value="9">Sep</option>
+                  <option value="10">Oct</option>
+                  <option value="11">Nov</option>
+                  <option value="12">Dec</option>
+
+                </select>
+              </div>
+            </div>
+
+
+            <div class="col-lg-3">
+
+              <div class="form-group">
+                <label for="expiryYear">Card Expiry Month</label>
+                <select class="form-control" name="expiryYear"
+                        [(ngModel)]="userPayment.expiryYear" id="expiryYear" required>
+
+                  <option value="" selected>--Year--</option>
+                  <option value="17">2017</option>
+                  <option value="18">2018</option>
+                  <option value="19">2019</option>
+                  <option value="20">2020</option>
+                  <option value="21">2021</option>
+                  <option value="22">2022</option>
+                  <option value="23">2023</option>
+                  <option value="24">2024</option>
+                  <option value="25">2025</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-lg-2">
+              <div class="form-group">
+
+                <label for="cardCvv">CVV</label>
+                <input type="text" class="form-control" name="cardCvv" id="cardCvv"
+                       [(ngModel)]="userPayment.cvc">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <button mat-raised-button class = "mat-primary" type = "submit">Save All</button>
+
+    </form>
+
+
+  </mat-tab>
+
+</mat-tab-group>
+

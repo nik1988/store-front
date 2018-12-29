@@ -63,3 +63,46 @@ this.loginService.loggedIn.subscribe(   // subscribe to the subject
 
 
 	
+------------------ declaring forms in template driven form------------------
+
+apart from declaring reference variable for form we also need to assign it to "ngForm" so that angular could
+know it is a form reference varaible
+
+example:
+ <form (ngSubmit)="onUpdateUserInfo()" style="margin-top:15px;" #uploadForm = "ngForm"
+
+otherwise to check for form level validations for example uploadForm.valid() it wont work.
+
+
+adding css for invalid data  to form control element for example <input type = "text" ... > 
+then we cam do:
+
+input.ng-touched.ng-invalid{
+
+  border:1px solid red;
+}
+
+
+-------------- creating model classes in Angular ------------
+
+variables names defined in model class should be in sync with corresponding pojo class in backend , other wise
+value of json response returned from backend may not map properly to variables in model.
+
+
+
+------------- removing an element from an array in typescript/angular ----------------------------
+
+we can remove an element from an array in angular using splice method .
+
+how to remove example :
+
+        this.cardDetailsList.splice(this.cardDetailsList.indexOf(payment),1);
+
+here cardDetails list is an array of user defined objects eg   cardDetailsList:UserPayment[];
+
+in the splice method we must pass the index of the element we wan to delete and the number of elements we want to delete,
+
+if we dont pass the num of elements it will delete all the elements from the given index.
+
+
+

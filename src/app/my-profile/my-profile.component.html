@@ -26,20 +26,20 @@
               <span class = "alert alert-danger">{{errorMessage}}</span>
             </div>
 
-            <form (ngSubmit)="onUpdateUserInfo()" style="margin-top:15px;">
+            <form (ngSubmit)="onUpdateUserInfo()" style="margin-top:15px;" #uploadForm = "ngForm">
 
               <div class="form-group">
                 <div class="row">
                   <div class="col-lg-6">
                     <label for="firstName">FirsName</label>
                     <input type="text" class="form-control" id="firstName"
-                           name="firstName" [(ngModel)]="user.firstname">
+                           name="firstName" [(ngModel)]="user.firstName"/>
                   </div>
 
                   <div class="col-lg-6">
                     <label for="lastName">LastName</label>
                     <input type="text" class="form-control" id="lastName"
-                           name="lastName" [(ngModel)]="user.lastname">
+                           name="lastName" [(ngModel)]="user.lastName"/>
                   </div>
 
                 </div>
@@ -50,14 +50,14 @@
                 <label for="userName">UserName</label>&nbsp;
                 <span *ngIf = "userNameExists" class ="text-danger">Username Already Exists</span>
                 <input type="text" class="form-control" id="userName"
-                       name="userName" [(ngModel)]="user.username">
+                       name="userName" [(ngModel)]="user.username" required/>
               </div>
 
               <div class="form-group">
                 <label for="currentPassword">Current Password *</label>&nbsp;
                <!-- <span *ngIf = "userNameExists" class ="text-danger">Usename Already Exists</span>-->
                 <input type="password" class="form-control" id="currentPassword"
-                       name="currentPassword" [(ngModel)]="user.password">
+                       name="currentPassword" [(ngModel)]="currentPassword" required/>
                 <p style = "color:#828282">Please enter current password to change email address
                 or password.</p>
               </div>
@@ -66,7 +66,7 @@
                 <label for="email">Email Address</label>&nbsp;
                 <span *ngIf = "emailExists" class ="text-danger">Email Already Exists</span>
                 <input type="text" class="form-control" id="email"
-                       name="email" [(ngModel)]="user.email">
+                       name="email" [(ngModel)]="user.email" email required/>
                 <p style = "color:#828282">Enter a valid email address</p>
               </div>
 
@@ -75,7 +75,7 @@
                 <label for="newPassword">New Password *</label>&nbsp;
                 <!-- <span *ngIf = "userNameExists" class ="text-danger">Usename Already Exists</span>-->
                 <input type="password" class="form-control" id="newPassword"
-                       name="newPassword" [(ngModel)]="txtNewPassword">
+                       name="newPassword" [(ngModel)]="txtNewPassword" required/>
               </div>
 
 
@@ -83,13 +83,21 @@
                 <label for="cnfrmPassword">Confirm Password *</label>&nbsp;
                 <!-- <span *ngIf = "userNameExists" class ="text-danger">Usename Already Exists</span>-->
                 <input type="password" class="form-control" id="cnfrmPassword"
-                       name="cnfrmPassword" [(ngModel)]="txtConfirmPassword">
+                       name="cnfrmPassword" [(ngModel)]="txtConfirmPassword" required/>
               </div>
 
-              <button mat-raised-button class="mat-primary" type = "submit">Submit</button>
+              <button mat-raised-button class="mat-primary" type = "submit" [disabled] = !uploadForm.valid>Submit</button>
 
             </form>
           </mat-tab>
+          <mat-tab label="Payment">
+            <user-payment></user-payment>
+          </mat-tab>
+
+          <mat-tab label="Shipping">
+          <user-shipping></user-shipping>
+          </mat-tab>
+
         </mat-tab-group>
 
 

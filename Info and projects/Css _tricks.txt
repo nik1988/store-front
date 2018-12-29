@@ -12,3 +12,15 @@ example : suppose we have background and we want some logos on top of that backg
 for the images which will be on top we will give z-index as 1.
 
 example:
+
+
+
+
+-------------------- adding css based on multiple properties present on html element----------------
+
+example:
+
+input.ng-touched.ng-invalid{
+
+  border:1px solid red;
+}

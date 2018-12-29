@@ -18,6 +18,7 @@ export class MyProfileComponent implements OnInit {
   txtNewPassword: string;
   txtConfirmPassword: string;
   anonymousUser: boolean = false;
+  serverPath:string = "";
 
   errorMessage: string = "";
   updateError: boolean;
@@ -32,7 +33,6 @@ export class MyProfileComponent implements OnInit {
     this.userService.getCurrentUser().subscribe(
       (user: User) => {
         this.user = user
-        console.log(user);
         if (user == null) {
           this.anonymousUser = true;
           console.log("anonymous user");
@@ -46,16 +46,18 @@ export class MyProfileComponent implements OnInit {
 
     this.datafetched = false;
     this.updateError = false;
+
+    this.user.password = this.currentPassword;
     this.userService.updateUser(this.user, this.txtNewPassword).subscribe(
       (response) => {
-
         this.datafetched = true;
       },
       (error) => {
 
         console.log("error while updating user data");
 
-        let errormessage = error.error
+        let errormessage = error.error;
+
         this.updateError = true;
 
         if (errormessage === 'incorrectPassword') {

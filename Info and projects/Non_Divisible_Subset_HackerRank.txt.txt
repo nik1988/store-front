@@ -1,0 +1,104 @@
+Question:
+
+Given a set of distinct integers, print the size of a maximal subset of array S where the sum of any two numbers in S'  is not evenly divisible by k .
+
+
+Algorithm:
+
+1.Trick for this question is if the sum of reaminders of 2 numbers divided by k is divisible by k then sum of
+two numbers will also be divisible by k
+there fore, we will create a new array till range of K and can take the count of numbers with paticular reamainders
+for example : count of numbers with remainder 5 , count of numbers with remainder 4 etc.
+
+2.Identify all the possible pairs whose sum will be divisible by k. k and k-j where j is starting from 1.
+
+3.Now any one of the pairs can be part of our set as descibed in 1. Hence we will find the maximum between 
+the given pairs and add it to the size variable. Repeat this for all possible pairs.
+
+4.For the set of numbers which give the remainder as 0 , we can consider count as only 1 beacause these numbers 
+added with each other will be divisible by K hence we can consider only one such number, hence we will increment 
+the count as 1 for this
+
+5. For the case whene the k i even, one possible pair would be k/2 + k/2 , here also we will consider only one
+such number as these numbers again will be divisible by k when added with each other , hence we will increment 
+count as 1.
+
+
+public class Solution {
+
+    // Complete the nonDivisibleSubset function below.
+    static int nonDivisibleSubset(int k, int[] S) {
+
+            int remainderArray[] = new int[k];
+            int result = 0;
+
+        /*
+
+                calculate the remainders and increment the corresponding index in 
+                array as two numbers whoes sum of remainders are divisible by k are 
+                also divisibe by k.
+
+                ThereFore we can consider any one of the numbers as part of our subset.
+        
+        */
+
+
+            for(int i:S){
+
+                remainderArray[i%k]++;
+            }
+
+
+            /*
+                Now identify possible remainder pairs whose sum will be divisible by k,
+
+                Possible remainder pairs can be calculated as:
+                j and k-j where j is staring from 1.
+                we need to iterate till k/2 as till k/2 we will get all possible pairs, after                    k/2, all possible pairs will start repeating.
+                
+                we will not consider pairs such as (6,6),(5,5) which are conjugate pairs in case
+                k is even.Note: we are ignoring index of this array in code.
+                possible count for such pairs can only be 1 because if we consider count for all                 these numbers, then this numbers added with each other will again be multiple of
+                k,hence we can cosider only count as 1.
+
+                we will not consider all the munbers whose remainders are 0 because when these
+                numbers added together are again divisible by k, although there is possibility 
+                to allow one such number hence we increment the count as 1.
+
+            */
+
+
+            for(int j = 1;j<=k/2;j++){
+
+             if(j != k-j){
+
+
+                 /*
+                 Since we want the maximum count of any of the possible pair we perform this                        operation
+                 */
+                result = result + Math.max(remainderArray[j],remainderArray[k-j]);
+
+             }
+            }
+
+            
+
+             if(remainderArray[0] > 0){
+                 result = result + 1; 
+             }
+
+            /*Considering the case for conjugate pairs */
+              if( k % 2 == 0 ){
+                  result = result + 1; 
+              }
+
+                return result;
+            
+
+
+          
+
+
+
+
+    }

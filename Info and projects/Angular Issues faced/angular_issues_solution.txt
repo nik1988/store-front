@@ -289,3 +289,57 @@ this.userService.newUser(this.username,this.email).subscribe(
         }
       }
 
+------------------------ Response from backend not getting mapped to model properly ---------------------------------
+
+supose we are sending a user data from backend which should be mapped to User class defined in angular
+
+
+    this.userService.getCurrentUser().subscribe(
+      (user: User) => {
+			console.log("firstname = " +user.firstName )..
+}
+
+but the value of firstname is shown as ubdefined in cosnole
+
+
+Solution:
+
+one of the cause is firstname defined in backend is not same as firstname defined in Angular hence we must make the variable names in sync with backend.
+ 
+for example:
+In Backend we have
+
+Class User {
+
+String firstName;
+....
+}
+
+but in Angular we have 
+
+Class User{
+
+String firstname;
+....
+}
+
+since the variables names are different, response is not getting mapped, therefore we must keep the variable names in sync hence if we modify firstname to firstName in angular, value gets mapped
+properly from response.
+
+
+
+
+
+------------- removing an element from an array in typescript/angular removes all the element from the given index ----------------------------
+
+we can remove an element from an array in angular using splice method .
+
+how to remove example :
+
+        this.cardDetailsList.splice(this.cardDetailsList.indexOf(payment),1);
+
+here cardDetails list is an array of user defined objects eg   cardDetailsList:UserPayment[];
+
+in the splice method we must pass the index of the element we wan to delete and the number of elements we want to delete,
+
+if we dont pass the num of elements it will delete all the elements from the given index.

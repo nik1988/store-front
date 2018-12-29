@@ -109,3 +109,64 @@ Note: Binary search was used to avoid O(n2) issue other wise multiple iterations
                     
                    
                     AliceRank.add((rankMap.get(scoreList.get(index))) + 1);
+
+
+
+-------------------- Very Long Factorials ----------------------------------
+
+use BigInteger to calculate a factorial
+
+ BigInteger num = new BigInteger("1");// declare a BigInteger
+ 
+       for(int i =2;i<=n;i++)
+       num = num.multiply(BigInteger.valueOf(i)); // use multiply method of biginteger to multiply.
+
+
+
+
+------------------- Circular Array rotations------------------------------------
+
+
+rotate the given array in right direction with given k rotations.
+
+Algo 1:
+
+Step 1:copy the elements starting from given array.length - k to temp array
+Step 2:move the elemnts starting from  array.length-k-1 till 0 to plus k positions , for example: if we have to rotate the array by 4 then move
+the remaining elements towards right by 4 positions.
+ 
+Step 3:copy the elements from temp array to begining of the given array.
+
+
+
+Algo 2:
+
+Reversal Algorithm:
+
+Step 1: split the array into two parts one will be array from 0 to array'length - k (arra1 )and other(array 2) will be remaining array
+Step 2: reverse both the arrays separately
+step 3: merge both the arrays(array1+array2) and reverse the final array , which will be the output.
+
+---------------
+
+to split the arrays use Arrays.copyOfRange to split the arrays and System.arraycopy to merge the arrays
+
+example:
+
+ int array1[] = Arrays.copyOfRange(a,0,a.length - k); // note: In copyofRange we dont have to do length -1
+    int array2[] =Arrays.copyOfRange(a, a.length - k,a.length );
+
+    int finalArray[] = new int[array1.length + array2.length];
+
+    array1 = Solution.revreseArray(array1);
+    array2 = Solution.revreseArray(array2);
+
+    System.arraycopy(array1,0,finalArray,0,array1.length);  //syntax (sourcearrayname,sourceindex,destn array,destinationIndex,no of items to be copied.)
+									//destination index is index from where elements will start getting placed.
+    System.arraycopy(array2,0,finalArray,array1.length,array2.length);
+
+     return revreseArray(finalArray);
+
+
+
+

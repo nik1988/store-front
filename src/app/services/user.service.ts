@@ -54,7 +54,7 @@ export class UserService {
 
 
 
-    return this.httpClient.get(url,{
+    return this.httpClient.get<User>(url,{
 
       'headers':this.header
 
@@ -68,16 +68,20 @@ export class UserService {
 
       'id':user.id,
       'email':user.email,
-      'firstname':user.firstname,
-      'lastname':user.lastname,
+      'firstname':user.firstName,
+      'lastname':user.lastName,
       'newpassword':newPassword,
-      'password':user.password
+      'currentpassword':user.password,
+      'username':user.username
 
     }
 
     let url = AppConst.serverPath +"/user/updateUserInfo";
 
-    return this.httpClient.post(url,userinfo);
+    return this.httpClient.post(url,userinfo,{
+      'responseType':'text'
+
+    });
 
   }
 
