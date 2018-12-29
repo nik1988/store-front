@@ -170,3 +170,32 @@ example:
 
 
 
+------------------------------ Queens Attack Problem ----------------------------------------------------------------------
+
+You will be given a square chess board with one queen and a number of obstacles placed on it. Determine how many squares the queen can attack.
+
+ 
+In this Queen can  attack in the same row in left and right ,in the same column where it is placed towards top or bottom and can attack all the diagonals from its current position.
+Given the obstacles we need to find total no of possible attacks queen can do in chess board.
+
+Note: In a chess board row increases from bottom to top and column increased from left to right where 1 is lower value and n is the highest value.
+
+Algo:
+
+At first we need to find total possible attacks queen can do in all possible directions.  
+we will have 8 variables which are left,right,top, bottom,top_left,top_right,bottom_left,bottom_right.
+
+
+first 4 directions are simple which is for top no of attacks =  (quenn_row - n), for bottom (queen_row - 1) for left (queen_col - 1) and so on etc.
+
+Now for other 4 cases whcih are diaognals, trick for diagonals is for calculcating the no of squares queen can attack on diaognal on top left that is in between top and left attacks of queens
+it will alllways be Math.min(top,left) ie top_left = Math.min(top,left),similarly we can calculate top_right,bottom_left,bottom_right.
+
+
+Now total no of attacks will be : left + right + top + bottom + top_left + top_right + bottom_left + bottom_right.
+
+Now we need to find the obstructions preseent and the reduce the no of attacks that queen can make on all the given directions to get the final result.
+ 
+for example : if queen is at 4,4 and obstruction is at 4,2  that means queen can make total attaks on left as (4-2) -1 . _1 because we shouldn't consider where obstruction is placed.
+hence we should update the value for left accordingly.
+In similar way we can find obstructions for all given directions and uodate there values then return the final result. 
