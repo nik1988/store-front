@@ -1,0 +1,38 @@
+Ascii value from a-z is in range of 97-122
+
+------- converting ascii value into char and then into string-------------
+
+int i =97;
+(char)i // will print a
+String pattern = Character.toString((char) i) + Character.toString((char) i);
+System.out.println(pattern);
+
+above will print aa;
+
+
+--------- method to check whether pattern exists in string in java---
+String s = "test";
+
+s.contains("<< pattern >>");
+
+-----------mathod to replace the pattern in given/replace method not replacing the pattern in given string -----------------
+
+we can use replaceAll method to replace the pattern in the string , 
+
+Although we must remember we must assign the refernce back to the string
+because Strings are immutable hence replace method will create a new String and it should be assigned 
+
+meaning if we just do:
+
+String pattern = ee;
+String testString = "teeest"
+
+testString.replace(pattern,""); Syso(testString); --  will print teeest  beacasue we have not assigned the converted string
+
+but if we do, it will print
+
+testString = testString.replace(pattern,""); --- will print test, as replace method returns the new string because strings are immutable, hence we must assign the reference to new string
+
+
+
+,

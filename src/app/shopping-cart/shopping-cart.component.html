@@ -1,0 +1,93 @@
+<div class="row">
+  <div class="col">
+
+    <img src="../../assets/images/wood.png" class="img-fluid wood-image">
+    <h2 class="section-headline"><span>Shopping Cart</span></h2>
+    <img src="../../assets/images/logo.png" class="rounded logo-image"/>
+
+  </div>
+</div>
+
+<div class = "row" style="margin-top:120px;">
+
+  <div class = "col-lg-6 text-left">
+
+    <button mat-raised-button class = "mat-warn" type = "button" routerLink="/bookList">Continue Shopping</button>
+
+  </div>
+
+  <div class = "col-lg-6 text-right">
+
+    <button mat-raised-button class = "mat-warn" type = "button" routerLink="/bookList">CheckOut</button>
+
+  </div>
+
+</div>
+
+<br/>
+
+<div *ngIf = "cartItemUpdated" class = "alert alert-success">Cart Item Updated SuccessFully</div>
+<div *ngIf = "notEnoughStock" class = "alert alert-warning">Some of the products doesnot have enough stock.</div>
+<div *ngIf = "emptyCart" class = "alert alert-danger">Your Cart is Empty, Please Add Items to your Cart.</div>
+
+<div class = "row">
+  <div class = "col-lg-8">
+    <h4>Products</h4>
+  </div>
+
+  <div class = "col-lg-2">
+    <h4>Price</h4>
+  </div>
+
+  <div class = "col-lg-2">
+    <h4>Qty</h4>
+  </div>
+</div>
+
+<hr/>
+<div class = "row" *ngFor = "let item of cartItemList">
+
+  <div class = "col-lg-2">
+
+    <a (click) = "onSelectItem(item.book)">
+
+      <div class = "card">
+        <div class = "card-body">
+          <img class = "img-fluid" src = "{{serverPath}}/image/book/{{item.book.id}}.png">
+        </div>
+      </div>
+    </a>
+
+  </div> <!-- book image -->
+  <div class = "col-lg-6">
+    <a href = ""style = "cursor:pointer"(click) = "onSelectItem(item.book)">
+      <span><h5>{{item.book.title}}</h5></span>
+    </a>
+    <a href = "" style = "cursor:pointer" (click) = "onRemoveCartItem(item.book)">Delete</a>
+  </div> <!-- book detail -->
+  <div class = "col-lg-2">
+
+    <h5 style = color:#db3208; [ngClass] = "{'text-srike' : item.book.inStockNumber == 0}">
+      {{item.book.ourPrice | currency:'USD'}}
+    </h5>
+
+  </div><!-- book price -->
+  <div class = "col-lg-2">
+
+    <input type = "text" class = "form-control" name = "qty" [(ngModel)] = "item.qty"
+           (ngModelChange) =  "item.toUpdate = true">
+    <button mat-button *ngIf = "item.toUpdate == true" (click) = "onUpdateCartItem(item)">Update</button>
+  </div><!-- item quantity -->
+</div>
+
+<div class = "row">
+  <div class = "col-lg-12">
+
+    <hr />
+    <h4 class = "text-right">
+      <strong style = "font-size: large"> Total Amount:(<span>{{cartItemNumber}}</span>)</strong>
+      <span style = "color:#db3208;font-size: large;">{{shoppingCart.grandTotal | currency:'USD'}}</span>
+    </h4>
+
+  </div>
+</div>

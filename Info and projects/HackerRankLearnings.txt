@@ -199,3 +199,10 @@ Now we need to find the obstructions preseent and the reduce the no of attacks t
 for example : if queen is at 4,4 and obstruction is at 4,2  that means queen can make total attaks on left as (4-2) -1 . _1 because we shouldn't consider where obstruction is placed.
 hence we should update the value for left accordingly.
 In similar way we can find obstructions for all given directions and uodate there values then return the final result. 
+
+
+
+
+
+
+

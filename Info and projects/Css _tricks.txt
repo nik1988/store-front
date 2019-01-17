@@ -24,3 +24,40 @@ input.ng-touched.ng-invalid{
 
   border:1px solid red;
 }
+
+
+------------------ Displying the particular font size as large and red in css ---------
+
+suppose we want to show the price of a book as large and red we can use stylxe = font-sizen: x-large which will increase the size if font to big and we can 
+use color as color:#db3208 for red color.
+
+example:
+ <a (click)="onSelectBook(book)" style="font-size: x-large;color:#db3208"> // css for large font-size and red color
+                {{book.ourPrice | currency: 'USD' }}
+              </a>
+
+
+----------------- Css style for strike through -----------------------------
+
+
+supoose we want to show a striked-though text on screnn we can use css style as l
+
+
+
+----------------- Css style to display items in same line (style = "display:inline;")-------------------------------------------------
+
+
+suppose we have added one time for examle <label> Qty: </label>
+
+next we add
+<select id = "item Quantity class = "form-control" >
+<option>...</option>
+
+What happens is this drop down will be displayed below label but what we want is drop down to be displayed in same line as label
+we can specify style as display:inline for select statment in order to achieve that
+
+example : 
+<select id = .. class = .. style = "display:inline;">
+<option>... </option>
+</select>
+

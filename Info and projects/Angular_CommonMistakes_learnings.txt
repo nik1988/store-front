@@ -106,3 +106,89 @@ if we dont pass the num of elements it will delete all the elements from the giv
 
 
 
+------------- Data Table in Angular -------------------------------------
+
+for creating a search nice table we can install angular data table using npm install, with data table we can implment 
+pagination and search 
+
+
+--------  Lodash Library in java script -------------------
+
+we can install lodash library in java script which is capable of performing efficient operations on collections.
+Dont know much need to read...
+
+--- Various predefined pipes used in store-front project ----------------
+
+
+uppercase pipe:
+
+there is an "uppercase" pipe which converts the given characters into uppercase.
+
+example:<span>{{book.format | uppercase}}</span> -- Conerts the string returned by book.format into uppercase.
+
+
+currency pipe:
+
+there is a currency pipe which is used to print currency symbol.
+
+example:
+
+ <a (click)="onSelectBook(book)" style="font-size: x-large;color:#db3208">
+                {{book.ourPrice | currency: 'USD' }}  // here dollar symbol will be added before price in the view.
+              </a>
+
+
+slice Pipe:
+
+slice pipe helps in reducing number of characters for example we only want to display first 500 characters of string we must do:
+
+<p>{{book.description | slice:0:500}}</p> , will display from 0 to 500 characters from a description.
+
+------------------ creating your own pipe/custom pipe in angular -----------------------------
+
+
+we can create our custom pipe by using pipe decorator(@pipe) and by implemneting pipetransform as shown in below example:
+
+@Pipe(
+  {
+    name:"dataFilter"
+  }
+)
+export class DataFilterPipe implements PipeTransform{
+
+  transform(array:any,query:string):any // can be any arguments, array argument should be by default as filter is applied on collection 
+  {
+	
+	//transformation logic for array
+	
+      return array; //return the transformed array.
+  }
+
+ }
+
+using the custom pipe:
+
+example : 
+    <table class="table" [mfData]="bookList | dataFilter : filterQuery" 
+where filterQuery is argument passed to filter an array.
+
+
+
+
+--------------------------------- ngModelChange in Angular ---------------------------------------------------
+
+
+lets take we have a scenario where we are showing quantity in cart using ngModel and if user changes the value of qunatity we want to show a button
+
+we can detect the changes using ng model and show a button in UI as shown below:
+
+    <input type = "text" class = "form-control" name = "qty" [(ngModel)] = "item.qty"
+           (ngModelChange) =  "item.toUpdate = true">
+    <button mat-button *ngIf = "item.toUpdate == true" (click) = "onUpdateCartItem(item)">Update</button>
+
+
+
+in above code we are showing value in text using item.qty and when user changes the value of item.qty can use ngModelChange to update the value pf toUpdate in model class item
+
+and when item.toUpdate is updated to true then we can show the button to update.
+

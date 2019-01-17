@@ -72,7 +72,9 @@ First one has worked for me , 2nd approach i need to investigate more.
 
 
 
+-------------------- In hibernate null is being returned when we try to access object associated with @OneToOne relation ---------------------------
 
+we have a scenation
 
 
 

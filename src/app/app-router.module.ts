@@ -4,6 +4,8 @@ import {HomeComponent} from "./home/home.component";
 import {MyAccountComponent} from "./my-account/my-account.component";
 import {MyProfileComponent} from "./my-profile/my-profile.component";
 import {BookListComponent} from "./book-list/book-list.component";
+import {BookDetailComponent} from "./book-detail/book-detail.component";
+import {ShoppingCartComponent} from "./shopping-cart/shopping-cart.component";
 
 const routes:Routes  = [
 
@@ -29,6 +31,14 @@ const routes:Routes  = [
     path:'book',
     component:BookListComponent
 
+  },
+  {
+    path:'bookDetail/:id',
+    component:BookDetailComponent
+  },
+  {
+    path:'shoppingCart',
+    component:ShoppingCartComponent
   }
 
 ]

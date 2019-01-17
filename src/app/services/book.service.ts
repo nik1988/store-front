@@ -20,4 +20,14 @@ export class BookService {
   }
 
 
+  getBookById(bookId:number){
+
+    let serverUrl = AppConst.serverPath;
+
+    const getBookUrl = serverUrl+"/book/" +bookId;
+
+    return this.httpClient.get<Book>(getBookUrl);
+
+  }
+
 }

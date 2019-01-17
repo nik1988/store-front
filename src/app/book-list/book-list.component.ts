@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Book} from "../model/book";
 import {BookService} from "../services/book.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-book-list',
@@ -9,7 +10,7 @@ import {BookService} from "../services/book.service";
 })
 export class BookListComponent implements OnInit {
 
-  constructor(private bookService:BookService) { }
+  constructor(private bookService:BookService,private router:Router) { }
 
   public filterQuery:string = "";
   public rowsOnPage = 5;
@@ -39,6 +40,9 @@ export class BookListComponent implements OnInit {
   }
 
   onSelectBook(book:Book){
+
+    console.log("routing to book detail");
+    this.router.navigate(['bookDetail/'+book.id]);
 
   }
 

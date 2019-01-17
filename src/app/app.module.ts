@@ -17,6 +17,8 @@ import { UserShippingComponent } from './user-shipping/user-shipping.component';
 import { BookListComponent } from './book-list/book-list.component';
 import {DataTableModule} from "angular-6-datatable";
 import {DataFilterPipe} from "../pipe/data-filter.pipe";
+import { BookDetailComponent } from './book-detail/book-detail.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import {DataFilterPipe} from "../pipe/data-filter.pipe";
     UserPaymentComponent,
     UserShippingComponent,
     BookListComponent,
-    DataFilterPipe
+    DataFilterPipe,
+    BookDetailComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,

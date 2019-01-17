@@ -1,0 +1,104 @@
+<div class="row">
+  <div class="col">
+
+    <img src="../../assets/images/wood.png" class="img-fluid wood-image">
+    <h2 class="section-headline"><span>Book Detail</span></h2>
+    <img src="../../assets/images/logo.png" class="rounded logo-image"/>
+
+  </div>
+</div>
+
+<div class="row" style="margin-top:120px;">
+  <div class="col-lg-12">
+
+    <a routerLink="/book">Back to Book List.</a>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-3">
+
+    <div class="card">
+
+      <div class="card-body">
+
+        <img class="img-fluid" style="object-fit: cover;" src="{{serverPath}}/image/book/{{book.id}}.png"/>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="col-lg-9">
+
+    <h3 *ngIf="addBookSuccess" style="color:forestgreen"><i class="fa fa-check" style="color:forestgreen"></i>
+      Added To Cart
+    </h3>
+    <h3><span *ngIf="notEnoughStock" style="color:red">Oops Only {{book.inStockNumber}} in Stock.</span></h3>
+
+    <h3>{{book.title}}</h3>
+    <div class="row">
+      <div class="col-lg-5">
+        <h5><Strong>Author:</Strong>{{book.author}}</h5>
+        <p><strong>Publisher:</strong>{{book.publisher}}</p>
+        <p><strong>Language:</strong>{{book.language}}</p>
+        <p><strong>Category:</strong>{{book.category}}</p>
+        <p><strong><span>{{book.format}}</span> : </strong> <span>{{book.numberOfPages}}</span></p>
+        <p><strong>ISBN:</strong><span>{{book.isbn}}</span></p>
+        <p><strong>Shipping Weight:</strong><span>{{book.shippingWeight}}</span></p>
+
+      </div>
+      <div class="col-lg-7">
+
+        <div class="card" style="width:600px;border-width: 5px">
+          <div class="card-body">
+
+            <div class="row">
+              <div class="col-lg-6">
+
+                <h6>Our price : <span style="color:#db3208;">{{book.ourPrice | currency:'USD'}}</span></h6>
+                <p>List Price:
+                  <span style="text-decoration: line-through;">{{book.listPrice | currency:'USD'}}</span>
+                </p>
+                <p>You Save: <span>{{book.listPrice - book.ourPrice | currency :'USD'}}</span></p>
+                <label for="quantity">Qty:</label>&nbsp;
+                <select id="quantity" [(ngModel)]="qty" class="form-control" style="width:70px;display:inline;">
+                  <option *ngFor="let number of numberList" [value]="number">{{number}}</option>
+
+                </select>
+              </div>
+
+              <div class = "col-xs-6">
+
+                <h6 *ngIf = "book.inStockNumber > 10" style = "color:green"> In Stock</h6>
+                <h6 *ngIf = "book.inStockNumber < 10 && book.inStockNumber > 0" style = "color:green">
+                  Only {{book.inStockNumber}} in Stock
+                </h6>
+                <h6 *ngIf = "book.inStockNumber  == 0" style = "color:darkred">Unavailable</h6>
+
+                <button mat-raised-button class="mat-primary"
+                        [disabled] = "book.inStockNumber == 0"
+                        (click) = "onAddToCart()">
+                  Add to Cart
+                </button>
+
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+      </div>
+      <p>{{book.description}}</p>
+    </div>
+
+  </div>
+
+
+
+
+</div>
